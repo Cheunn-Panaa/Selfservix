@@ -8,7 +8,6 @@ spec:
     spec:
       containers:
       - name: sample-app
-        image: nanajanashia/argocd-app:1.2
         resources:
           limits:
             cpu: 800m
