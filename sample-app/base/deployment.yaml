@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-app
+spec:
+  selector:
+    matchLabels:
+      app: sample-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+      - name: sample-app
+        image: nanajanashia/argocd-app:1.0
+        ports:
+        - containerPort: 8080
+        tty: true
+        stdin: true
+        env:
+          - name: foo
+            value: bar
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
