@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: application-kustomize-template
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/Cheunn-Panaa/Selfservix.git
+        revision: HEAD
+        directories:
+          # here it will read the paths under configs and the subpaths under the config paths
+          - path: k8s/apps/*/*/*
+  template:
+    metadata:
+      namespace: "{{path.basename}}"
+      # you can use the path strings with / delimiter as variables
+      name: "{{path[2]}}-{{path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Cheunn-Panaa/Selfservix.git
+        targetRevision: HEAD
+        path: "k8s/apps/*/*/*"
+      destination:
+        namespace: "{{path.basename}}"
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+  sourceType: Kustomize
