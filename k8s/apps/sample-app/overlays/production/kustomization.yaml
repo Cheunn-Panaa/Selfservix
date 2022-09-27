@@ -5,6 +5,8 @@ nameSuffix: -production
 
 resources:
 - ../../base
+patchesStrategicMerge:
+- deployment-patch.yaml
 images:
 - name: nanajanashia/argocd-app
   newTag: "1.2"

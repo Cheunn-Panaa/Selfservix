@@ -10,9 +10,21 @@ init:
 	$(MAKE) .init-argo
 	$(MAKE) update-pass
 
+start:
+	minikube start
 
+setup-app-set:
+	kubectl -n argocd apply -f application-set.yaml
+
+open: .set-ingress
+	@open http://argocd.${INGRESS_HOST}.nip.io
+	
 .init-namespaces:
 	kubectl create namespace argocd
+
+	kubectl create namespace staging
+
+	kubectl create namespace production
 #	kubectl create ns traefik-v2
 
 .init-cluster:
@@ -53,10 +65,6 @@ update-pass: .set-ingress
 .set-ingress:
 	$(eval INGRESS_HOST :=$(shell minikube ip))
 	$(export INGRESS_HOST=$(minikube ip))
-.verify-dependencies:
-	ifeq (, $(shell which kubectl))
-	$(error "No kubectl in $(PATH), kubectl is required on your machine to use this makefile")
-	endif
 
 delete:
 	minikube delete
