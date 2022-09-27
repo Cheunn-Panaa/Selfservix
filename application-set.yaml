@@ -28,4 +28,3 @@ spec:
       syncPolicy:
         automated:
           prune: true
-  sourceType: Kustomize
