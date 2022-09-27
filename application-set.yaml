@@ -10,6 +10,8 @@ spec:
         revision: HEAD
         directories:
           - path: k8s/apps/*/*/*
+          - path: k8s/traefik
+            exclude: true
   template:
     metadata:
       namespace: "{{path.basename}}"
