@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cheese
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: cheese
+        resources:
+          limits:
+            cpu: 800m
+            memory: 500Mi

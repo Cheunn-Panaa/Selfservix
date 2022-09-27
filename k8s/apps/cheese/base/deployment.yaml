@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cheese
+spec:
+  selector:
+    matchLabels:
+      app: cheese
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cheese
+    spec:
+      containers:
+      - name: cheese
+        image: errm/cheese:cheddar
+        ports:
+        - containerPort: 8080
+        tty: true
+        stdin: true
+        env:
+          - name: foo
+            value: bar
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
