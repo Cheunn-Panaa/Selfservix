@@ -9,6 +9,7 @@ init:
 #	$(MAKE) .init-traefik
 	$(MAKE) .init-argo
 	$(MAKE) update-pass
+	kubectl -n argocd apply -f argocd-repositories.yaml
 
 start:
 	minikube start
